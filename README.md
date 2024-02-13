@@ -1,0 +1,1 @@
+# vite-plugin-singlefile-escaped
