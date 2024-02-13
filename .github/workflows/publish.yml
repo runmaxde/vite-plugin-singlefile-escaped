@@ -1,0 +1,81 @@
+name: Publish to NPM with Changelog and Push Changes
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Update type (major, minor, patch)'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: Validate version input
+      run: |
+        if [[ "${{ github.event.inputs.version }}" =~ ^(major|minor|patch)$ ]]; then
+          echo "Valid version input"
+        else
+          echo "Invalid version input: ${{ github.event.inputs.version }}"
+          exit 1
+        fi
+
+    - name: Generate changelog from commits
+      id: changelog
+      run: |
+        LAST_TAG=$(git describe --tags --abbrev=0 || echo "START")
+        CHANGELOG=$(git log ${LAST_TAG}..HEAD --pretty=format:"- %s")
+        if [ -z "$CHANGELOG" ]; then
+          echo "No new commits to add to changelog."
+          CHANGELOG="No new changes."
+        fi
+        echo "Changelog since last tag:"
+        echo "$CHANGELOG"
+        echo "::set-output name=changelog::$CHANGELOG"
+
+    - name: Bump version and update changelog
+      id: bump_version
+      run: |
+        VERSION=$(npm version ${{ github.event.inputs.version }} --no-git-tag-version)
+        echo "New version: $VERSION"
+        echo "::set-output name=version::$VERSION"
+        echo "## $VERSION - $(date +'%Y-%m-%d')" > CHANGELOG.tmp
+        echo "${{ steps.changelog.outputs.changelog }}" >> CHANGELOG.tmp
+        echo "" >> CHANGELOG.tmp
+        cat CHANGELOG.md >> CHANGELOG.tmp || echo "No previous changelog."
+        mv CHANGELOG.tmp CHANGELOG.md
+        git config user.name github-actions
+        git config user.email github-actions@github.com
+        git add CHANGELOG.md
+        git commit -m "chore: update changelog for $VERSION"
+
+    - name: Push changes
+      run: |
+        git push
+
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.bump_version.outputs.version }}
+        release_name: Release ${{ steps.bump_version.outputs.version }}
+        body: ${{ steps.changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
