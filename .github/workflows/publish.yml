@@ -12,13 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-    - uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4.0.2
-
     - name: Validate version input
       run: |
         if [[ "${{ github.event.inputs.version }}" =~ ^(major|minor|patch)$ ]]; then
@@ -27,6 +20,11 @@ jobs:
           echo "Invalid version input: ${{ github.event.inputs.version }}"
           exit 1
         fi
+        
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
 
     - name: Bump version
       id: bump_version
@@ -39,11 +37,6 @@ jobs:
         git commit -am "chore(release): $VERSION"
         git push
 
-    - name: Publish to npm
-      run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
-
     - name: Create GitHub Release
       uses: actions/create-release@v1
       env:
@@ -53,3 +46,8 @@ jobs:
         release_name: Release ${{ steps.bump_version.outputs.version }}
         draft: false
         prerelease: false
+
+    - name: Publish to npm
+      run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
