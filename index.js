@@ -5,7 +5,7 @@ import jsesc from "jsesc";
  * Will escape the single file HTML based on an optional config -- for config see also jsecs docs https://www.npmjs.com/package/jsesc#api
  * @param {string} wrapBefore
  * @param {string} wrapAfter
- * @param {{numbers: "binary" | "octal" | "decimal" | "hexadecimal", quotes: "double" | "backstick" | "single", wrap: boolean, es6: boolean, escapeEverything: boolean, minimal: boolean, isScriptContext: boolean, compact: boolean, indent: string, indentLevel:  number, json: boolean, lowercaseHex: boolean}} config
+ * @param {{numbers: "binary" | "octal" | "decimal" | "hexadecimal", quotes: "double" | "backstick" | "single", wrap: boolean, es6: boolean, escapeEverything: boolean, minimal: boolean, isScriptContext: boolean, compact: boolean, indent: string, indentLevel:  number, json: boolean, lowercaseHex: boolean}} config
  * @returns () => void
  */
 
@@ -27,19 +27,6 @@ export default function viteSingleFileEscaped(
     lowercaseHex,
   }
 ) {
-  const config = {};
-  if (numbers) config.numbers = numbers;
-  if (quotes) config.quotes = quotes;
-  if (wrap) config.wrap = wrap;
-  if (es6) config.es6 = es6;
-  if (escapeEverything) config.escapeEverything = escapeEverything;
-  if (minimal) config.minimal = minimal;
-  if (isScriptContext) config.isScriptContext = isScriptContext;
-  if (compact) config.compact = compact;
-  if (indent) config.indent = indent;
-  if (indentLevel) config.indentLevel = indentLevel;
-  if (json) config.json = json;
-  if (lowercaseHex) config.lowercaseHex = lowercaseHex;
   return {
     name: " vite-plugin-singlefile-escaped",
     writeBundle(_, bundle) {
@@ -54,7 +41,20 @@ export default function viteSingleFileEscaped(
         }
 
         // Use string-escape to escape the file content
-        const escapedContent = jsesc(data, { ...config });
+        const escapedContent = jsesc(data, {
+          numbers,
+          quotes,
+          wrap,
+          es6,
+          escapeEverything,
+          minimal,
+          isScriptContext,
+          compact,
+          indent: indent || "",
+          indentLevel,
+          json,
+          lowercaseHex,
+        });
 
         // Wrap if needed
         const wrapBeforeClean = wrapBefore ? wrapBefore : "";
