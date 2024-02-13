@@ -16,25 +16,24 @@ To use `vite-plugin-singlefile-escaped` in your Vite project, import it into you
 ```js
 // vite.config.js
 import { viteSingleFile } from "vite-plugin-singlefile";
-import viteSingleFileEscaped from 'vite-plugin-singlefile-escaped';
+import viteSingleFileEscaped from "vite-plugin-singlefile-escaped";
 
 export default {
-  plugins: [
-    viteSingleFile(),
-    viteSingleFileEscaped()
-  ],
+  plugins: [viteSingleFile(), viteSingleFileEscaped()],
 };
 ```
 
 ## Configuration
 
-`viteSingleFileEscaped` accepts two optional parameters to customize the wrapping of the escaped content
+`viteSingleFileEscaped` accepts two optional parameters to customize the wrapping of the escaped content and an optional posibility of a configuration for more precise escaping
 
 ```js
-function viteSingleFileEscaped(wrapBefore: string, wrapAfter: string): void
+function viteSingleFileEscaped(wrapBefore: string, wrapAfter: string, config: object): void
 ```
+
 - wrapBefore: A string to prepend before the escaped content.
 - wrapAfter: A string to append after the escaped content.
+- config: A destructured object that allows to add special configurations
 
 If not provided, these parameters default to an empty string, meaning no wrapping will be applied beyond escaping the content.
 Example
@@ -44,12 +43,12 @@ Here is an example configuration that escapes the entire output of your single-f
 ```js
 // vite.config.js
 import { viteSingleFile } from "vite-plugin-singlefile";
-import viteSingleFileEscaped from 'vite-plugin-singlefile-escaped';
+import viteSingleFileEscaped from "vite-plugin-singlefile-escaped";
 
 export default {
   plugins: [
     viteSingleFile(),
-    viteSingleFileEscaped('console.log("', ');')
+    viteSingleFileEscaped('console.log("', ");", { quotes: "double" }),
   ],
 };
 ```
