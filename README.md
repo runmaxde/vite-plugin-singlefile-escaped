@@ -55,7 +55,7 @@ export default {
 ```
 
 ```js
-// dist/<???.html>
+// dist/index.html
 console.log("<ESCAPED_CODE_PLACEHOLDER>");
 ```
 
