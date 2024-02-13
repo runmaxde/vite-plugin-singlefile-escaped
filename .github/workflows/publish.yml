@@ -17,10 +17,7 @@ jobs:
         fetch-depth: 0
 
     - name: Setup Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-        registry-url: 'https://registry.npmjs.org'
+      uses: actions/setup-node@v4.0.2
 
     - name: Validate version input
       run: |
@@ -38,6 +35,7 @@ jobs:
         git config user.email github-actions@github.com
         VERSION=$(npm version ${{ github.event.inputs.version }})
         echo "$VERSION" > VERSION.txt
+        git add .
         git commit -am "chore(release): $VERSION"
         git push
 
