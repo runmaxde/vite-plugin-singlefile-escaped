@@ -37,7 +37,7 @@ jobs:
         git config user.name github-actions
         git config user.email github-actions@github.com
         VERSION=$(npm version ${{ github.event.inputs.version }})
-        echo "New version: $VERSION"
+        echo "$VERSION" > VERSION.txt
         git commit -am "chore(release): $VERSION"
         git push
 
