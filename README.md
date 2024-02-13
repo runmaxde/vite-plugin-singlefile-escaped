@@ -54,6 +54,11 @@ export default {
 };
 ```
 
+```js
+// dist/<???.html>
+console.log("<ESCAPED_CODE_PLACEHOLDER>");
+```
+
 This setup escapes the single-file output and wraps it with `console.log("` at the beginning and `");` at the end, making it ready to be logged directly to the console as part of a larger script or debugging tool.
 
 ## License
