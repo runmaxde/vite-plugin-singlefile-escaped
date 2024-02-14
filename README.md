@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://github.com/runmaxde/vite-plugin-singlefile-escaped/assets/41482988/9a8a6682-621d-42c6-98e2-91e001fdfb14" height="128" />
   <h1>Singlefile Escaped 📦🧣</h1>
-  <h3><a href="https://vitejs.dev/guide/using-plugins">Vite Plugin</a> to export code as escaped text after bundeling (<a href="https://www.npmjs.com/package/vite-plugin-singlefile">singlefile</a>)</h3>
+  <h3><a href="https://vitejs.dev/guide/using-plugins">Vite Plugin</a> to export code as escaped text after bundling (<a href="https://www.npmjs.com/package/vite-plugin-singlefile">singlefile</a>)</h3>
   <br/><br/><br/>
 </div>
 
