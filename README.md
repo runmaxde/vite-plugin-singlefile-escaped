@@ -19,7 +19,10 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import viteSingleFileEscaped from "vite-plugin-singlefile-escaped";
 
 export default {
-  plugins: [viteSingleFile(), viteSingleFileEscaped()],
+  plugins: [
+    viteSingleFile(),
+    viteSingleFileEscaped()
+  ],
 };
 ```
 
