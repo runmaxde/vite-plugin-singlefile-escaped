@@ -1,9 +1,18 @@
+<div align="center">
+  <img src="https://github.com/runmaxde/vite-plugin-singlefile-escaped/assets/41482988/9a8a6682-621d-42c6-98e2-91e001fdfb14" height="128" />
+  <h1>Singlefile Escaped 📦🧣</h1>
+  <h3><a href="https://vitejs.dev/guide/using-plugins">Vite Plugin</a> to export code as escaped text after bundeling (<a href="https://www.npmjs.com/package/vite-plugin-singlefile">singlefile</a>)</h3>
+  <br/><br/><br/>
+</div>
+
+
 # vite-plugin-singlefile-escaped
 
 This Vite plugin allows you to escape the output of `vite-plugin-singlefile` and optionally wrap it with custom strings before and after. It uses `jsesc` to escape the content, making it safe for embedding in specific environments or as part of a larger string.
 Installation
 
 `npm install vite-plugin-singlefile-escaped --save-dev`
+
 
 or if you prefer using Yarn:
 
