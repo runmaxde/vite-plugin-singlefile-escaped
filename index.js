@@ -12,20 +12,7 @@ import jsesc from "jsesc";
 export default function viteSingleFileEscaped(
   wrapBefore,
   wrapAfter,
-  {
-    numbers,
-    quotes,
-    wrap,
-    es6,
-    escapeEverything,
-    minimal,
-    isScriptContext,
-    compact,
-    indent,
-    indentLevel,
-    json,
-    lowercaseHex,
-  }
+  jsescConfigObj
 ) {
   return {
     name: " vite-plugin-singlefile-escaped",
@@ -41,20 +28,7 @@ export default function viteSingleFileEscaped(
         }
 
         // Use string-escape to escape the file content
-        const escapedContent = jsesc(data, {
-          numbers,
-          quotes,
-          wrap,
-          es6,
-          escapeEverything,
-          minimal,
-          isScriptContext,
-          compact,
-          indent: indent || "", // crashes when "indent" is undefined
-          indentLevel,
-          json,
-          lowercaseHex,
-        });
+        const escapedContent = jsesc(data, jsescConfigObj);
 
         // Wrap if needed
         const wrapBeforeClean = wrapBefore ? wrapBefore : "";
