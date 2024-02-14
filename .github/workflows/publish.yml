@@ -32,8 +32,8 @@ jobs:
 
     - name: Configure bot user for Git operations
       run: |
-        git config user.name "YourBotName"
-        git config user.email "yourbotemail@example.com"
+        git config user.name "release-bot"
+        git config user.email "release-bot@example.com"
 
     - name: Create Release
       run: npx standard-version --release-as ${{ github.event.inputs.versionType }}
