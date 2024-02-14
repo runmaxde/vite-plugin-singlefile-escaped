@@ -14,7 +14,7 @@ Installation
 
 
 ```bash
-npm install vite-plugin-singlefile-escaped --save-dev`
+npm install vite-plugin-singlefile-escaped --save-dev
 ```
 
 or if you prefer using Yarn:
