@@ -36,7 +36,7 @@ function viteSingleFileEscaped(wrapBefore: string, wrapAfter: string, config: ob
 
 - wrapBefore: A string to prepend before the escaped content.
 - wrapAfter: A string to append after the escaped content.
-- config: A destructured object that allows to add special configurations
+- config: A destructured object that allows to add special configurations [Jsesc Docs](https://www.npmjs.com/package/jsesc)
 
 If not provided, these parameters default to an empty string, meaning no wrapping will be applied beyond escaping the content.
 Example
