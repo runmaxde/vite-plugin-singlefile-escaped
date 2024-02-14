@@ -50,7 +50,7 @@ export default function viteSingleFileEscaped(
           minimal,
           isScriptContext,
           compact,
-          indent: indent || "",
+          indent: indent || "", // crashes when "indent" is undefined
           indentLevel,
           json,
           lowercaseHex,
