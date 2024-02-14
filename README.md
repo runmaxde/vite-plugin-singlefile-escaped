@@ -11,12 +11,17 @@
 This Vite plugin allows you to escape the output of `vite-plugin-singlefile` and optionally wrap it with custom strings before and after. It uses `jsesc` to escape the content, making it safe for embedding in specific environments or as part of a larger string.
 Installation
 
-`npm install vite-plugin-singlefile-escaped --save-dev`
 
+
+```bash
+npm install vite-plugin-singlefile-escaped --save-dev`
+```
 
 or if you prefer using Yarn:
 
-`yarn add vite-plugin-singlefile-escaped --dev`
+```bash
+yarn add vite-plugin-singlefile-escaped --dev
+```
 
 ## Usage
 
